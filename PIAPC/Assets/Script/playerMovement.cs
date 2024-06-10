@@ -5,11 +5,14 @@ using UnityEngine;
 public class playerMovement : MonoBehaviour
 {
     private Rigidbody2D body;
+    private Animator anim;
+    private bool grounded; 
     [SerializeField] private float playerSpeed;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -25,9 +28,28 @@ public class playerMovement : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
 
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetKey(KeyCode.Space) && grounded)
         {
-            body.velocity = new Vector2(body.velocity.x, playerSpeed);
+            Jump();
         }        
+
+        // el bool de anim run pasa a ser verdadero siempre que se aprieten las flechas
+        anim.SetBool("Run", horizontalInput != 0);
+        anim.SetBool("Grounded", grounded);
+    }
+
+    private void Jump ()
+    {
+        body.velocity = new Vector2(body.velocity.x, playerSpeed);        
+        grounded = false;
+        anim.SetTrigger("jump");
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "ground")
+        {
+            grounded = true;
+        }
     }
 }
