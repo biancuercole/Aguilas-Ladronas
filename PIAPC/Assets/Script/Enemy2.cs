@@ -4,12 +4,16 @@ using UnityEngine.AI;
 
 public class Enemy2 : MonoBehaviour
 {
+    [SerializeField] Transform target; 
+    [SerializeField] private float minDistance; 
+    [SerializeField] private float speed; //velocidad para persecución
     [SerializeField] private float time;
     [SerializeField] Transform[] WayPoints;
     [SerializeField] private int currentWaypoint;
 
     NavMeshAgent agent;
-    [SerializeField] private bool isWaiting;
+    private bool isWaiting;
+    private bool isFollowing; 
 
     // Start is called before the first frame update
     void Start()
@@ -18,15 +22,34 @@ public class Enemy2 : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         isWaiting = false;
+        isFollowing = false;
         agent.SetDestination(WayPoints[currentWaypoint].position);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isWaiting && agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
+        float distanceToTarget = Vector2.Distance(transform.position, target.position);
+        
+        if (distanceToTarget < minDistance)
         {
-            StartCoroutine(Wait());
+            isFollowing = true;
+            agent.SetDestination(target.position);
+        }
+        else
+        {
+            if (isFollowing)
+            {
+                // Si estaba siguiendo al jugador y ahora se alejó, volver al waypoint
+                isFollowing = false;
+                agent.SetDestination(WayPoints[currentWaypoint].position);
+            }
+
+            // Patrullar waypoints
+            if (!isWaiting && agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
+            {
+                StartCoroutine(Wait());
+            }
         }
     }
 
@@ -34,12 +57,18 @@ public class Enemy2 : MonoBehaviour
     {
         isWaiting = true;
         yield return new WaitForSeconds(time);
-        currentWaypoint++;
-        if (currentWaypoint == WayPoints.Length)
+        
+        // Solo cambiar al siguiente waypoint si no está siguiendo al jugador
+        if (!isFollowing)
         {
-            currentWaypoint = 0;
+            currentWaypoint++;
+            if (currentWaypoint == WayPoints.Length)
+            {
+                currentWaypoint = 0;
+            }
+            agent.SetDestination(WayPoints[currentWaypoint].position);
         }
-        agent.SetDestination(WayPoints[currentWaypoint].position);
+
         isWaiting = false;
     }
 }
