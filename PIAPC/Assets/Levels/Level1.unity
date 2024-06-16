@@ -1396,7 +1396,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8601616842872210777, guid: f59aa8b06d9704546884a173060b04ae, type: 3}
-  timeBetween: 5
+  timeBetween: 2
+  player: {fileID: 1912625003}
+  distance: 2
 --- !u!1 &1377672210
 GameObject:
   m_ObjectHideFlags: 0
