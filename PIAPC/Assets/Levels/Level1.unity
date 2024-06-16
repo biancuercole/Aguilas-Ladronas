@@ -2367,6 +2367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 30
+  levelIndex: 2
 --- !u!1 &2124185377
 GameObject:
   m_ObjectHideFlags: 0

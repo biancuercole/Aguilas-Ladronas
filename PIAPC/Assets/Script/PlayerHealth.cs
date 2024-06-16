@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.SceneManagement;
+
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float maxHealth;
+    [SerializeField] private int levelIndex;
     private float health;
     private SpriteRenderer spriteRenderer;
 
@@ -27,7 +30,12 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            Debug.Log("perdiste");
+            ChangeLevel(levelIndex);
         }
+    }
+
+    public void ChangeLevel(int index)
+    {
+        SceneManager.LoadScene(index);
     }
 }
