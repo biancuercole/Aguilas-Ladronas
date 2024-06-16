@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private float damage;
     private Transform player;
     private Rigidbody2D body;
     // Start is called before the first frame update
@@ -29,8 +30,14 @@ public class Projectile : MonoBehaviour
         yield return new WaitForSeconds(destroyTime);
         Destroy(gameObject);
     }
-    private void OnCollisionEnter2D()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            StartCoroutine(playerHealth.GetDamage(damage));
+        }
+
         Destroy(gameObject);
     }
 }

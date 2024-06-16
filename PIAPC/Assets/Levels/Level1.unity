@@ -1398,7 +1398,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8601616842872210777, guid: f59aa8b06d9704546884a173060b04ae, type: 3}
   timeBetween: 2
   player: {fileID: 1912625003}
-  distance: 2
+  distance: 5
 --- !u!1 &1377672210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,6 +2173,7 @@ GameObject:
   - component: {fileID: 1912625004}
   - component: {fileID: 1912625005}
   - component: {fileID: 1912625006}
+  - component: {fileID: 1912625007}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2353,6 +2354,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1912625007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912625000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ccad7b2bea9764aac2d73947970c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 30
 --- !u!1 &2124185377
 GameObject:
   m_ObjectHideFlags: 0

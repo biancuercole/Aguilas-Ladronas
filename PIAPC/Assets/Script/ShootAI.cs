@@ -43,6 +43,6 @@ public class ShootAI : MonoBehaviour
             Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             yield return new WaitForSeconds(timeBetween);
         }
-        isShooting = false; // Reset isShooting when exiting the loop
+        isShooting = false; 
     }
 }
