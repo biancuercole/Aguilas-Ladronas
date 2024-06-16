@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy2 : MonoBehaviour
+public class EnemyPatroll : MonoBehaviour
 {
     [SerializeField] Transform target; 
     [SerializeField] private float minDistance; 
