@@ -51,6 +51,15 @@ public class EnemyPatroll : MonoBehaviour
                 StartCoroutine(Wait());
             }
         }
+        
+        if (agent.velocity.x < 0.1f)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
+        else if (agent.velocity.x > -0.1f)
+        {
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        }
     }
 
     IEnumerator Wait()
