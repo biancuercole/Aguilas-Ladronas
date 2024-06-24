@@ -34,7 +34,7 @@ public class EnemyPatroll : MonoBehaviour
         if (distanceToTarget < minDistance)
         {
             isFollowing = true;
-            agent.SetDestination(target.position);
+            agent.SetDestination(target.position); //hace que el enemigo comience a seguir al waypoint.
         }
         else
         {
@@ -66,14 +66,12 @@ public class EnemyPatroll : MonoBehaviour
     {
         isWaiting = true;
         yield return new WaitForSeconds(time);
-        
-        // Solo cambiar al siguiente waypoint si no está siguiendo al jugador
         if (!isFollowing)
         {
-            currentWaypoint++;
+            currentWaypoint++; // cambia al siguiente waypoint
             if (currentWaypoint == WayPoints.Length)
             {
-                currentWaypoint = 0;
+                currentWaypoint = 0; //cuando ya se recorrieron todos los waypoints, vuelve a 0
             }
             agent.SetDestination(WayPoints[currentWaypoint].position);
         }
